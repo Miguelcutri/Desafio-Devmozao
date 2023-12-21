@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 import HomePage from "../pages/HomePage";
-import { GithubUserDataTypes } from "./types";
+import { GithubUserDataTypes } from "./ApiGithub.types";
 
 export default function ApiGithub() {
   const searchDev = () => {

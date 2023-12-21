@@ -1,5 +1,5 @@
 import { UseQueryResult } from "react-query";
-import { GithubUserDataTypes } from "../../services/types";
+import { GithubUserDataTypes } from "../../services/ApiGithub.types";
 
 export interface ApiGithubTypes {
   data: GithubUserDataTypes | undefined;
