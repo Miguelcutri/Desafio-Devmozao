@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Button } from "../../components/Button/styles";
 import { Input } from "../../components/Input/styles";
-export default function HomePage() {
-  const [isActive, setIsActive] = useState(false);
+import { ApiGithubTypes } from "./types";
 
+export default function HomePage({ data, refetch }: ApiGithubTypes) {
+  const [isActive, setIsActive] = useState(false);
   return (
     <>
       <h1>Search Devs</h1>
@@ -12,7 +13,10 @@ export default function HomePage() {
         onBlur={() => setIsActive(false)}
         placeholder="Type the username here..."
       />
-      <Button isActive={isActive}>Buscar</Button>
+      <Button isActive={isActive} onClick={() => refetch()}>
+        Buscar
+      </Button>
+      {data && <h1>{data.login}</h1>}
     </>
   );
 }
