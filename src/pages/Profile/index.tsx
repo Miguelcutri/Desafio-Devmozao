@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Button } from "../../components/Button/styles";
-import { GithubDataContext } from "../../services/ApiGithub";
+import { GithubDataContext } from "../..";
 import {
   Container,
   DataProfile,
@@ -12,9 +12,11 @@ import {
   ProfileStatsRepository,
   Line,
 } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const { data } = useContext(GithubDataContext);
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -43,7 +45,14 @@ export default function Profile() {
         <h3>Site</h3>
         <h3>Twitter</h3>
         <AlignButton>
-          <Button isActive>Voltar</Button>
+          <Button
+            isActive
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Voltar
+          </Button>
         </AlignButton>
       </DataProfile>
       <Repositorys>
