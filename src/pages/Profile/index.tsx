@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Button } from "../../components/Button/styles";
+import { GithubDataContext } from "../../services/ApiGithub";
 import {
   Container,
   DataProfile,
@@ -12,6 +14,8 @@ import {
 } from "./styles";
 
 export default function Profile() {
+  const { data } = useContext(GithubDataContext);
+
   return (
     <Container>
       <DataProfile>
@@ -23,7 +27,7 @@ export default function Profile() {
           />
         </ImageProfile>
         <h2>Developer full name</h2>
-        @MiguelCutri
+        {data && data.login}
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus
           inventore

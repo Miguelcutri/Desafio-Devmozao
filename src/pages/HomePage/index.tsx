@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "../../components/Button/styles";
 import { Input } from "../../components/Input/styles";
-import { ApiGithubTypes } from "./types";
+import { GithubDataContext } from "../../services/ApiGithub";
 
-export default function HomePage({ data, refetch }: ApiGithubTypes) {
+export default function HomePage() {
   const [isActive, setIsActive] = useState(false);
+  const { refetch } = useContext(GithubDataContext);
   return (
     <>
       <h1>Search Devs</h1>
@@ -16,7 +17,6 @@ export default function HomePage({ data, refetch }: ApiGithubTypes) {
       <Button isActive={isActive} onClick={() => refetch()}>
         Buscar
       </Button>
-      {data && <h1>{data.login}</h1>}
     </>
   );
 }

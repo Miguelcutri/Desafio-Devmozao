@@ -1,8 +1,15 @@
 import { useQuery } from "react-query";
 import axios from "axios";
-
+import { createContext } from "react";
 import HomePage from "../pages/HomePage";
-import { GithubUserDataTypes } from "./ApiGithub.types";
+import { GithubUserDataTypes, GithubDataContextType } from "./ApiGithub.types";
+import Profile from "../pages/Profile";
+
+export const GithubDataContext = createContext<GithubDataContextType>({
+  data: undefined,
+  isLoading: false,
+  refetch: () => {},
+});
 
 export default function ApiGithub() {
   const searchDev = () => {
@@ -22,9 +29,11 @@ export default function ApiGithub() {
   if (isLoading) {
     return <p>Carregando...</p>;
   }
+
   return (
-    <>
-      <HomePage data={data} refetch={refetch} searchDev={searchDev()} />
-    </>
+    <GithubDataContext.Provider value={{ data, isLoading, refetch }}>
+      <HomePage />
+      <Profile />
+    </GithubDataContext.Provider>
   );
 }
