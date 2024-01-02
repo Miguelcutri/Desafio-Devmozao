@@ -18,7 +18,7 @@ export const ImageProfile = styled.div`
   margin-top: 25px;
 `;
 export const FlexContainer = styled.div`
-  display: flex;
+  display: block;
   justify-content: center;
 `;
 export const ProfileStats = styled.div`
@@ -51,4 +51,15 @@ export const Line = styled.h1`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+`;
+export const Ancora = styled.a`
+  color: white;
+`;
+
+export const RepositoriesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+  height: 90vh;
 `;

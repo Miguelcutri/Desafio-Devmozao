@@ -11,39 +11,61 @@ import {
   Repositorys,
   ProfileStatsRepository,
   Line,
+  Ancora,
+  RepositoriesContainer,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
-  const { data } = useContext(GithubDataContext);
+  const { dataRepository, dataDeveloper } = useContext(GithubDataContext);
   const navigate = useNavigate();
 
+  function formatDate(dateString: string) {
+    const months = [
+      "janeiro",
+      "fevereiro",
+      "março",
+      "abril",
+      "maio",
+      "junho",
+      "julho",
+      "agosto",
+      "setembro",
+      "outubro",
+      "novembro",
+      "dezembro",
+    ];
+
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${day} de ${month} de ${year}`;
+  }
   return (
     <Container>
       <DataProfile>
         <ImageProfile>
-          <img
-            src="https://picsum.photos/200/300?random=1"
-            height={300}
-            width={300}
-          />
+          <img src={dataDeveloper?.avatar_url} height={300} width={300} />
         </ImageProfile>
-        <h2>Developer full name</h2>
-        {data && data?.login}
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus
-          inventore
-        </p>
+        <h2>{dataDeveloper && dataDeveloper.name}</h2>@
+        {dataDeveloper && dataDeveloper.login}
+        <p>{dataDeveloper && dataDeveloper.bio}</p>
         <FlexContainer>
-          <ProfileStats>200 Follows</ProfileStats>
-          <ProfileStats>200 Follows</ProfileStats>
-          <ProfileStats>200 Follows</ProfileStats>
+          <ProfileStats>
+            {dataDeveloper && dataDeveloper.followers} followers
+          </ProfileStats>
+          <ProfileStats>
+            {dataDeveloper && dataDeveloper.following} following
+          </ProfileStats>
         </FlexContainer>
-        <h3>Organization</h3>
-        <h3>Location</h3>
-        <h3>Email</h3>
-        <h3>Site</h3>
-        <h3>Twitter</h3>
+        <h3>{dataDeveloper && dataDeveloper.company}</h3>
+        <h3>{dataDeveloper && dataDeveloper.location}</h3>
+        <h3>{dataDeveloper && dataDeveloper.email}</h3>
+        <h3>
+          <Ancora href={dataDeveloper && dataDeveloper.blog}>Linkedin</Ancora>
+        </h3>
         <AlignButton>
           <Button
             isActive
@@ -55,20 +77,24 @@ export default function Profile() {
           </Button>
         </AlignButton>
       </DataProfile>
-      <Repositorys>
-        <h2>Repository Name</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum facere
-          voluptatem, sit totam sapiente illum voluptatibus commodi cupiditate
-          fugiat quibusdam. Ipsam nobis quibusdam fugiat perspiciatis itaque
-          vitae dolorum iure beatae?
-        </p>
-        <FlexContainer>
-          <ProfileStatsRepository>100 stars</ProfileStatsRepository>
-          <ProfileStatsRepository>Updated 30 days ago</ProfileStatsRepository>
-        </FlexContainer>
-        <Line />
-      </Repositorys>
+      <RepositoriesContainer>
+        {dataRepository &&
+          dataRepository.map((item) => (
+            <Repositorys>
+              <h3 key={item.id}>{item.name}</h3>
+              <p>{item.description}</p>
+              <FlexContainer>
+                <ProfileStatsRepository>
+                  {item.stargazers_count} Stars
+                </ProfileStatsRepository>
+                <ProfileStatsRepository>
+                  {formatDate(item.updated_at)}
+                </ProfileStatsRepository>
+              </FlexContainer>
+              <Line />
+            </Repositorys>
+          ))}
+      </RepositoriesContainer>
     </Container>
   );
 }

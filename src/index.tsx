@@ -8,9 +8,12 @@ import "./styles.css";
 import { GithubDataContextType } from "./types";
 
 export const GithubDataContext = createContext<GithubDataContextType>({
-  data: undefined,
-  isLoading: false,
-  refetch: () => {},
+  dataRepository: undefined,
+  dataDeveloper: undefined,
+  isLoadingDeveloper: false,
+  isLoadingRepository: false,
+  refetchDeveloper: () => {},
+  refetchRepository: () => {},
   inputValue: undefined,
   handleInputChange: () => {},
   setShouldFetch: () => {},
@@ -20,31 +23,51 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [shouldFetch, setShouldFetch] = useState(false);
 
-  const searchDev = () => {
+  const searchDeveloper = () => {
     return axios
       .get(`http://api.github.com/users/${inputValue}`)
+      .then((response) => response.data);
+  };
+  const searchRepositorys = () => {
+    return axios
+      .get(`https://api.github.com/users/${inputValue}/repos`)
       .then((response) => response.data);
   };
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
-  const { data, isLoading, refetch } = useQuery("user", searchDev, {
+  const {
+    data: dataDeveloper,
+    isLoading: isLoadingDeveloper,
+    refetch: refetchDeveloper,
+  } = useQuery("user", searchDeveloper, {
+    enabled: shouldFetch,
+  });
+  const {
+    data: dataRepository,
+    isLoading: isLoadingRepository,
+    refetch: refetchRepository,
+  } = useQuery("repos", searchRepositorys, {
     enabled: shouldFetch,
   });
   useEffect(() => {
     if (shouldFetch) {
-      refetch();
+      refetchDeveloper();
+      refetchRepository();
       setShouldFetch(false);
     }
-  }, [shouldFetch, refetch]);
+  }, [shouldFetch, refetchDeveloper, refetchRepository]);
 
   return (
     <GithubDataContext.Provider
       value={{
-        data,
-        isLoading,
-        refetch,
+        dataDeveloper,
+        dataRepository,
+        isLoadingDeveloper,
+        isLoadingRepository,
+        refetchDeveloper,
+        refetchRepository,
         setShouldFetch,
         handleInputChange,
         inputValue,

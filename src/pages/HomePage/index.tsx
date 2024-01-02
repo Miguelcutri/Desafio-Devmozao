@@ -6,8 +6,12 @@ import { Input } from "../../components/Input/styles";
 
 export default function HomePage() {
   const [isActive, setIsActive] = useState(false);
-  const { refetch, handleInputChange, setShouldFetch } =
-    useContext(GithubDataContext);
+  const {
+    refetchDeveloper,
+    refetchRepository,
+    handleInputChange,
+    setShouldFetch,
+  } = useContext(GithubDataContext);
   const navigate = useNavigate();
 
   return (
@@ -22,7 +26,8 @@ export default function HomePage() {
       <Button
         isActive={isActive}
         onClick={() => {
-          refetch();
+          refetchDeveloper();
+          refetchRepository();
           setShouldFetch(true);
           navigate("/profile");
         }}
