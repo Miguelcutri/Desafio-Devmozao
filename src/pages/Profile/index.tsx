@@ -29,7 +29,7 @@ export default function Profile() {
           />
         </ImageProfile>
         <h2>Developer full name</h2>
-        {data && data.login}
+        {data && data?.login}
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus
           inventore
