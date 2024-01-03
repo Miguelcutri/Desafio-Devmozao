@@ -57,6 +57,7 @@ export const Line = styled.h1`
 `;
 export const Ancora = styled.a`
   color: white;
+  margin-left: 5px;
 `;
 
 export const RepositoriesContainer = styled.div`
@@ -75,4 +76,9 @@ export const Description = styled.p`
 export const Title = styled.div`
   margin: 0px 0px;
   color: #333333;
+`;
+export const AncoraRepo = styled.a`
+  margin: 0px 0px;
+  color: #333333;
+  text-decoration: none;
 `;

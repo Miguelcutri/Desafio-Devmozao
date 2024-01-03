@@ -34,7 +34,7 @@ export interface GithubUserDataTypes {
   created_at: string;
   updated_at: string;
 }
-export interface GithubReposDataTypes{
+export interface GithubReposDataTypes {
   id: number;
   node_id: string;
   name: string;
@@ -43,6 +43,7 @@ export interface GithubReposDataTypes{
   stargazers_count: number;
   updated_at: string;
   description: string;
+  html_url: string;
 }
 
 export interface GithubDataContextType {

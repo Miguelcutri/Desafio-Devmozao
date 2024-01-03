@@ -16,6 +16,7 @@ import {
   Description,
   Title,
   FlexContainerRepository,
+  AncoraRepo,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 
@@ -69,10 +70,14 @@ export default function Profile() {
         </FlexContainer>
         <h3>🏢 {dataDeveloper && dataDeveloper.company}</h3>
         <h3>📍 {dataDeveloper && dataDeveloper.location}</h3>
-        <h3>
-          🔗
-          <Ancora href={dataDeveloper && dataDeveloper.blog}> Linkedin</Ancora>
-        </h3>
+        {dataDeveloper && dataDeveloper.blog.length > 0 && (
+          <h3>
+            🔗
+            <Ancora href={dataDeveloper && dataDeveloper.blog} target="_blank">
+              Blog
+            </Ancora>
+          </h3>
+        )}
         <AlignButton>
           <Button
             onClick={() => {
@@ -87,7 +92,11 @@ export default function Profile() {
         {sortedStars &&
           sortedStars.map((item) => (
             <Repositorys>
-              <Title key={item.id}>{item.name}</Title>
+              <Title key={item.id}>
+                <AncoraRepo href={item.html_url} target="_blank">
+                  {item.name}
+                </AncoraRepo>
+              </Title>
               <Description>{item.description}</Description>
               <FlexContainerRepository>
                 <ProfileStatsRepository>
