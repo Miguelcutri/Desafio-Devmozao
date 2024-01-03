@@ -5,9 +5,9 @@ export const Container = styled.div`
   height: 90vh;
 `;
 export const DataProfile = styled.div`
-  background-color: #2d3436;
+  background-color: #3a3f44;
   width: 450px;
-  height: 1024px;
+  height: 105%;
   color: black;
   text-align: left;
   padding: 25px;
@@ -18,11 +18,14 @@ export const ImageProfile = styled.div`
   margin-top: 25px;
 `;
 export const FlexContainer = styled.div`
-  display: block;
+  display: flex;
   justify-content: center;
 `;
+export const FlexContainerRepository = styled.div`
+  display: flex;
+`;
 export const ProfileStats = styled.div`
-  margin: 20px;
+  margin: 0px 20px 0px 20px;
   font-size: 14px;
 `;
 export const AlignButton = styled.div`
@@ -41,13 +44,13 @@ export const Repositorys = styled.div`
 `;
 
 export const ProfileStatsRepository = styled.div`
-  margin-left: 20px;
+  margin-right: 20px;
   font-size: 14px;
-  color: #cccacc;
+  color: #606060;
 `;
 export const Line = styled.h1`
   height: 0.3px;
-  background-color: #cccacc;
+  background-color: #cdcdcd;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -62,4 +65,14 @@ export const RepositoriesContainer = styled.div`
   align-items: flex-start;
   overflow-y: auto;
   height: 90vh;
+  margin-top: 20px;
+`;
+export const Description = styled.p`
+  color: #606060;
+  font-size: 14px;
+  margin: 0;
+`;
+export const Title = styled.div`
+  margin: 0px 0px;
+  color: #333333;
 `;

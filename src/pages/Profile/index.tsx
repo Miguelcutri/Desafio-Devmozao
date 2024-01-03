@@ -13,6 +13,9 @@ import {
   Line,
   Ancora,
   RepositoriesContainer,
+  Description,
+  Title,
+  FlexContainerRepository,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 
@@ -43,6 +46,10 @@ export default function Profile() {
 
     return `${day} de ${month} de ${year}`;
   }
+
+  const sortedStars = dataRepository?.sort(
+    (a, b) => b.stargazers_count - a.stargazers_count
+  );
   return (
     <Container>
       <DataProfile>
@@ -54,21 +61,20 @@ export default function Profile() {
         <p>{dataDeveloper && dataDeveloper.bio}</p>
         <FlexContainer>
           <ProfileStats>
-            {dataDeveloper && dataDeveloper.followers} followers
+            👥 {dataDeveloper && dataDeveloper.followers} followers
           </ProfileStats>
           <ProfileStats>
-            {dataDeveloper && dataDeveloper.following} following
+            💕 {dataDeveloper && dataDeveloper.following} following
           </ProfileStats>
         </FlexContainer>
-        <h3>{dataDeveloper && dataDeveloper.company}</h3>
-        <h3>{dataDeveloper && dataDeveloper.location}</h3>
-        <h3>{dataDeveloper && dataDeveloper.email}</h3>
+        <h3>🏢 {dataDeveloper && dataDeveloper.company}</h3>
+        <h3>📍 {dataDeveloper && dataDeveloper.location}</h3>
         <h3>
-          <Ancora href={dataDeveloper && dataDeveloper.blog}>Linkedin</Ancora>
+          🔗
+          <Ancora href={dataDeveloper && dataDeveloper.blog}> Linkedin</Ancora>
         </h3>
         <AlignButton>
           <Button
-            isActive
             onClick={() => {
               navigate("/");
             }}
@@ -78,19 +84,19 @@ export default function Profile() {
         </AlignButton>
       </DataProfile>
       <RepositoriesContainer>
-        {dataRepository &&
-          dataRepository.map((item) => (
+        {sortedStars &&
+          sortedStars.map((item) => (
             <Repositorys>
-              <h3 key={item.id}>{item.name}</h3>
-              <p>{item.description}</p>
-              <FlexContainer>
+              <Title key={item.id}>{item.name}</Title>
+              <Description>{item.description}</Description>
+              <FlexContainerRepository>
                 <ProfileStatsRepository>
-                  {item.stargazers_count} Stars
+                  ⭐️ {item.stargazers_count} Stars
                 </ProfileStatsRepository>
                 <ProfileStatsRepository>
-                  {formatDate(item.updated_at)}
+                  📆 {formatDate(item.updated_at)}
                 </ProfileStatsRepository>
-              </FlexContainer>
+              </FlexContainerRepository>
               <Line />
             </Repositorys>
           ))}
