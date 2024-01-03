@@ -4,7 +4,7 @@ import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Profile from "./pages/Profile";
-import "./styles.css";
+import {} from "./styles.css";
 import { GithubDataContextType } from "./types";
 
 export const GithubDataContext = createContext<GithubDataContextType>({
