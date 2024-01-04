@@ -19,34 +19,11 @@ import {
   AncoraRepo,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "./FormatDate";
 
 export default function Profile() {
   const { dataRepository, dataDeveloper } = useContext(GithubDataContext);
   const navigate = useNavigate();
-
-  function formatDate(dateString: string) {
-    const months = [
-      "janeiro",
-      "fevereiro",
-      "março",
-      "abril",
-      "maio",
-      "junho",
-      "julho",
-      "agosto",
-      "setembro",
-      "outubro",
-      "novembro",
-      "dezembro",
-    ];
-
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-
-    return `${day} de ${month} de ${year}`;
-  }
 
   const sortedStars = dataRepository?.sort(
     (a, b) => b.stargazers_count - a.stargazers_count
