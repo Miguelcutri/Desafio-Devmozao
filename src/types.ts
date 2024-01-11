@@ -1,4 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { Profile } from "./model/Profile";
+import { Repository } from "./model/Repository";
 
 export interface GithubUserDataTypes {
   login: string;
@@ -47,8 +49,8 @@ export interface GithubReposDataTypes {
 }
 
 export interface GithubDataContextType {
-  dataDeveloper: GithubUserDataTypes | undefined;
-  dataRepository: GithubReposDataTypes[] | undefined;
+  dataDeveloper: Profile | undefined;
+  dataRepository: Repository[] | undefined;
   isLoadingDeveloper: boolean;
   isLoadingRepository: boolean;
   refetchDeveloper: () => void;

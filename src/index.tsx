@@ -1,11 +1,12 @@
 import { ChangeEvent, createContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Profile from "./pages/Profile";
 import {} from "./styles.css";
 import { GithubDataContextType } from "./types";
+import { ProfileController } from "./controller/ProfileController";
+import { RepositoryController } from "./controller/RepositoryController";
 
 export const GithubDataContext = createContext<GithubDataContextType>({
   dataRepository: undefined,
@@ -19,19 +20,18 @@ export const GithubDataContext = createContext<GithubDataContextType>({
   setShouldFetch: () => {},
 });
 
+const profileController = new ProfileController();
+const repositoryController = new RepositoryController();
+
 function App() {
   const [inputValue, setInputValue] = useState("");
   const [shouldFetch, setShouldFetch] = useState(false);
 
-  const searchDeveloper = () => {
-    return axios
-      .get(`http://api.github.com/users/${inputValue}`)
-      .then((response) => response.data);
+  const searchDeveloper = async () => {
+    return await profileController.getProfile(inputValue);
   };
-  const searchRepositorys = () => {
-    return axios
-      .get(`https://api.github.com/users/${inputValue}/repos`)
-      .then((response) => response.data);
+  const searchRepositories = async () => {
+    return await repositoryController.getRepository(inputValue);
   };
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -48,7 +48,7 @@ function App() {
     data: dataRepository,
     isLoading: isLoadingRepository,
     refetch: refetchRepository,
-  } = useQuery("repos", searchRepositorys, {
+  } = useQuery("repos", searchRepositories, {
     enabled: shouldFetch,
   });
   useEffect(() => {
@@ -60,24 +60,26 @@ function App() {
   }, [shouldFetch, refetchDeveloper, refetchRepository]);
 
   return (
-    <GithubDataContext.Provider
-      value={{
-        dataDeveloper,
-        dataRepository,
-        isLoadingDeveloper,
-        isLoadingRepository,
-        refetchDeveloper,
-        refetchRepository,
-        setShouldFetch,
-        handleInputChange,
-        inputValue,
-      }}
-    >
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </GithubDataContext.Provider>
+    <div id="particles-js">
+      <GithubDataContext.Provider
+        value={{
+          dataDeveloper,
+          dataRepository,
+          isLoadingDeveloper,
+          isLoadingRepository,
+          refetchDeveloper,
+          refetchRepository,
+          setShouldFetch,
+          handleInputChange,
+          inputValue,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </GithubDataContext.Provider>
+    </div>
   );
 }
 
