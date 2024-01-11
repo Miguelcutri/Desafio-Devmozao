@@ -1,8 +1,8 @@
 import { UseQueryResult } from "react-query";
-import { GithubUserDataTypes } from "../../types";
+import { Profile } from "../../model/Profile";
 
 export interface ApiGithubTypes {
-  data: GithubUserDataTypes | undefined;
-  refetch: () => Promise<UseQueryResult<GithubUserDataTypes, unknown>>;
+  data: Profile | undefined;
+  refetch: () => Promise<UseQueryResult<Profile, unknown>>;
   searchDev: Promise<string>;
 }

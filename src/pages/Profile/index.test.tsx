@@ -3,10 +3,11 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { GithubDataContext } from "../..";
+import { GithubDataContextType } from "../../types";
 import Profile from "../Profile";
 import { formatDate } from "../Profile/FormatDate";
 
-const testValues = {
+const testValues: GithubDataContextType = {
   dataDeveloper: undefined,
   dataRepository: undefined,
   isLoadingDeveloper: false,
@@ -53,6 +54,22 @@ describe("Profile", () => {
     fireEvent.click(screen.getByText("Voltar"));
     expect(mockNavigate).toHaveBeenCalledWith("/");
   });
+  it("should sorted by star numbers", () => {
+    const dataRepository = [
+      { name: "Repo1", stargazers_count: 10 },
+      { name: "Repo2", stargazers_count: 30 },
+      { name: "Repo3", stargazers_count: 20 },
+    ];
+
+    const sortedStars = dataRepository.sort(
+      (a, b) => b.stargazers_count - a.stargazers_count
+    );
+    expect(sortedStars[0].stargazers_count).toBe(30);
+    expect(sortedStars[1].stargazers_count).toBe(20);
+    expect(sortedStars[2].stargazers_count).toBe(10);
+  });
+
+  
 });
 
 it("should format date", () => {

@@ -32,7 +32,7 @@ export default function Profile() {
     <Container>
       <DataProfile>
         <ImageProfile>
-          <img src={dataDeveloper?.avatar_url} height={300} width={300} />
+          <img src={dataDeveloper?.avatar} height={300} width={300} />
         </ImageProfile>
         <h2>{dataDeveloper && dataDeveloper.name}</h2>@
         {dataDeveloper && dataDeveloper.login}
