@@ -60,7 +60,7 @@ function App() {
   }, [shouldFetch, refetchDeveloper, refetchRepository]);
 
   return (
-    <div id="particles-js">
+    <>
       <GithubDataContext.Provider
         value={{
           dataDeveloper,
@@ -79,7 +79,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </GithubDataContext.Provider>
-    </div>
+    </>
   );
 }
 
